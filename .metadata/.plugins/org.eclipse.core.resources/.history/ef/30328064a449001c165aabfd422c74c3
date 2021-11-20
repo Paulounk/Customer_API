@@ -1,0 +1,5 @@
+package com.challenge.keeggo.exception;
+
+public class AuthenticationException {
+
+}

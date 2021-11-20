@@ -1,0 +1,85 @@
+package com.challenge.keeggo.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.challenge.keeggo.dto.CustomerDTO;
+import com.challenge.keeggo.exception.BusinessRuleException;
+import com.challenge.keeggo.model.Customer;
+import com.challenge.keeggo.repository.CustomerRepository;
+import com.challenge.keeggo.service.CustomerService;
+
+@RestController
+@RequestMapping("/customers")
+@CrossOrigin("*")
+public class CustomerController {
+
+	@Autowired
+	private CustomerRepository repository;
+	
+	@Autowired
+	private CustomerService service;
+	
+	
+	@GetMapping
+	public ResponseEntity<List<Customer>> getAllCustomers(){
+		return ResponseEntity.ok(repository.findAll());
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Customer> getCustomerById(@PathVariable Long id){
+		
+		return service.getCustomerById(id)
+						 .map(resp -> ResponseEntity.ok(resp))
+						 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+	}
+	
+	@PostMapping("/sign-up")
+	public ResponseEntity<?> customerSave(@RequestBody @Valid CustomerDTO customerDTO){
+		
+		Customer customer = service.convertDTO(customerDTO);
+		try {
+			Customer customerSave = service.customerSave(customer);
+			return ResponseEntity.status(HttpStatus.CREATED).body(customerSave);
+		}
+		catch(BusinessRuleException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
+	@PutMapping("/alteration/{id}")
+	public ResponseEntity<?> customerUpdate(@PathVariable Long id, @RequestBody @Valid Customer customer){
+		
+		return service.getCustomerById(id).map(resp -> {
+			return service.customerUpdate(resp);
+		}).orElseGet(() -> new ResponseEntity("Entry not found in database for update.", HttpStatus.BAD_REQUEST));
+		
+		Customer customerConvert = service.convertDTO(customerDTO);
+		
+		Optional<Customer> customer = service.customerUpdate(customerConvert);
+	
+		try {
+			return ResponseEntity.ok(customer.get());
+		}
+		catch(ResponseStatusException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
+	
+}

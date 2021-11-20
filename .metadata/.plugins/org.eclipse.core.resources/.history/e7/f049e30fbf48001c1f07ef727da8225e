@@ -1,0 +1,8 @@
+package com.challenge.keeggo.dto;
+
+public class CustomerDTO {
+
+	private Integer cpf;
+	private String password;
+	
+}

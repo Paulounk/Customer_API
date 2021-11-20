@@ -1,0 +1,8 @@
+package com.challenge.keeggo.dto;
+
+public class CustomerDTO {
+
+	private String email;
+	private String password;
+	
+}

@@ -1,0 +1,13 @@
+package com.challenge.keeggo.dto;
+
+import lombok.Data;
+
+@Data
+public class CustomerDTO {
+
+	private String name;
+	private Integer cpf;
+	private String email;
+	private String password;
+	
+}

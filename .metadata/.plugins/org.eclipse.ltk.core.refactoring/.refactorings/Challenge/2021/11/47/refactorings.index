@@ -1,0 +1,12 @@
+1637264558927	Delete element
+1637277774448	Rename type 'Address'
+1637279297416	Delete element
+1637350997263	Extract local variable 'present'
+1637357725375	Extract local variable 'convertDTO'
+1637365043189	Delete element
+1637366723903	Extract local variable 'existsByCpf'
+1637369205974	Delete element
+1637372297063	Delete element
+1637374255484	Delete element
+1637381008778	Delete element
+1637390590858	Rename type 'CustomerLogin'

@@ -1,0 +1,44 @@
+package com.challenge.keeggo.model;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sun.istack.NotNull;
+
+import lombok.Data;
+
+
+@Entity
+@Table(name = "address")
+@Data
+public class Address {
+
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	private Long id;
+	
+	@NotNull
+	private String street;
+	
+	@NotNull
+	private Integer number;
+	
+	@NotNull
+	private String district;
+	
+	@NotNull
+	private String city;
+	
+	@NotNull
+	private String state;
+	
+	@OneToOne
+	@JsonIgnoreProperties("address")
+	private Customer customer;
+	
+}

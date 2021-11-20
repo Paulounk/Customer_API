@@ -1,0 +1,5 @@
+package com.challenge.keeggo.security;
+
+public class CustomerDetailsServiceImpl {
+
+}
