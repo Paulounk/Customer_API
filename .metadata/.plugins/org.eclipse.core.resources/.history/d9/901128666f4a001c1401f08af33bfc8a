@@ -1,0 +1,7 @@
+package com.challenge.keeggo.service;
+
+public interface CustomerService {
+
+	
+	
+}

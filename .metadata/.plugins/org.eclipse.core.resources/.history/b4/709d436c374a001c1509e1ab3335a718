@@ -1,0 +1,13 @@
+package com.challenge.keeggo.repository;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.challenge.keeggo.model.Address;
+import com.challenge.keeggo.model.Customer;
+
+public interface AddressRepository extends JpaRepository<Address, Long>{
+
+	Optional<Address> findByCustomer (Customer customer);
+}

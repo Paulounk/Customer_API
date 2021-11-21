@@ -1,0 +1,25 @@
+package com.challenge.keeggo.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import com.challenge.keeggo.dto.CustomerLoginDTO;
+import com.challenge.keeggo.dto.CustomerRequestDTO;
+import com.challenge.keeggo.entity.Customer;
+
+public interface CustomerService {
+
+	Customer customerSignup (CustomerRequestDTO customerRequestDTO);
+	Customer customerLogin (CustomerLoginDTO customerLoginDTO);
+	
+	Optional<Customer> customerUpdate(CustomerRequestDTO customerRequestDTO);
+	Optional<Customer> getCustomerById(Long id);
+	
+	List<Customer> getAllCustomers();
+	
+	void customerDelete(Long id);
+	void validateCPF(String cpf);
+	void validatesCustomerDuplication(CustomerRequestDTO customerRequestDTO);
+	
+	
+}

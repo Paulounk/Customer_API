@@ -1,0 +1,69 @@
+package com.challenge.keeggo.service;
+
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import com.challenge.keeggo.dto.CustomerDTO;
+import com.challenge.keeggo.entity.Customer;
+import com.challenge.keeggo.exception.InvalidInformationException;
+import com.challenge.keeggo.repository.CustomerRepository;
+
+@SpringBootTest
+@ExtendWith(SpringExtension.class)
+@ActiveProfiles("test")
+public class CustomerServiceTest {
+
+	@SpyBean
+	CustomerServiceImpl service;
+
+	@MockBean
+	CustomerRepository repository;
+
+	@Test
+	public void mustSingupACustomer() {
+
+		//Scenery
+		CustomerDTO customerDTO = CustomerDTO.builder().id(1l).email("paulo@hotmail.com").password("123456").name("Paulo").cpf("99999999999").build();
+		Customer customer = Customer.builder().id(1l).email("paulo@hotmail.com").password("123456").name("Paulo").cpf("99999999999").build();
+		
+		Mockito.doNothing().when(service).validateCPF(Mockito.anyString());
+		Mockito.doNothing().when(service).validatesCustomerDuplication(Mockito.any(CustomerDTO.class));
+		Mockito.doNothing().when(service).encryptPassword(Mockito.any(CustomerDTO.class));
+		Mockito.when(repository.save(customer)).thenReturn(customer);
+		
+		//Action
+		CustomerDTO customerSave = service.customerSignup(customerDTO);
+	
+		//Verification
+		Assertions.assertThat(customerSave).isNotNull();
+		Assertions.assertThat(customerSave.getId()).isEqualTo(1l);
+		Assertions.assertThat(customerSave.getEmail()).isEqualTo("paulo@hotmail.com");
+		Assertions.assertThat(customerSave.getPassword()).isEqualTo("123456");
+		Assertions.assertThat(customerSave.getName()).isEqualTo("Paulo");
+		Assertions.assertThat(customerSave.getCpf()).isEqualTo("40717299880");
+	}
+
+	@Test
+	public void shouldReturnErrorIfCpfIsInvalid() {
+	
+		//Scenery
+		Customer customer = Customer.builder()
+								.email("paulo@hotmail.com")
+								.password("123456")
+								.name("Paulo")
+								.cpf("848484856").build();
+	
+		//Action
+		Throwable erro = Assertions.catchThrowable( () -> service.validateCPF(customer.getCpf()));
+		
+		//Verification
+		Assertions.assertThat(erro).isInstanceOf(InvalidInformationException.class).hasMessage("Invalid CPF.");
+	}
+}

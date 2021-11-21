@@ -1,0 +1,26 @@
+1637456103750	Rename package 'com.challenge.keeggo.model'
+1637456154054	Rename type 'CustomerService'
+1637456169252	Rename type 'CustomerServiceTest'
+1637459662884	Rename package 'com.challenge.keeggo.controller'
+1637460641570	Move compilation unit
+1637460685751	Rename type 'UserCostumer'
+1637464794649	Rename type 'CostumerLoginDTO'
+1637465982384	Extract local variable 'convertDTOCostumer'
+1637467841083	Extract local variable 'convertCustomerToDTO'
+1637468099418	Rename type 'CustomerRequestDTO'
+1637468557525	Rename type 'CustomerController'
+1637469250080	Rename type 'BusinessRuleException'
+1637469254167	Delete element
+1637470759117	Move compilation unit
+1637470912775	Move compilation unit
+1637470916843	Delete element
+1637471061095	Rename type 'CustomerDetailsImpl'
+1637471072958	Rename type 'CustomerDetailsServiceImpl'
+1637473155890	Delete element
+1637474145422	Rename type 'BasicSecurityConfig'
+1637475892444	Rename type 'CustomerServiceImplTest'
+1637478713972	Delete element
+1637507854873	Delete element
+1637508313972	Delete element
+1637509095987	Extract local variable 'convertDTOCustomer'
+1637522566073	Delete element

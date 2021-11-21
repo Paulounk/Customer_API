@@ -1,0 +1,57 @@
+package com.challenge.keeggo.model;
+
+import java.util.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import lombok.Data;
+
+@Entity
+@Table(name = "customer")
+@Data
+public class Customer {
+	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	private Long id;
+	
+	@Email
+	private String email;
+	
+	@Size(min=6, message = "Password must contain at least 6 characters.")
+	private String password;
+	
+	@Size(max=100)
+	@NotBlank(message = "The fild name is required.")
+	private String name;
+	
+	@Size(max=11)
+	@NotBlank(message = "The fild CPF is required.")
+	private String cpf;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern="dd-MM-yyyy")
+	private Date dateRegister = new java.sql.Date(System.currentTimeMillis());
+	
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JsonIgnoreProperties("customer")
+	private Address address;
+	
+	
+
+}

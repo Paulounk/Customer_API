@@ -1,0 +1,9 @@
+package com.challenge.keeggo;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class CustomerRepositoryTest {
+
+	  @Autowired
+	  private UsuarioRepository usuarioRepository;
+}

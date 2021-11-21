@@ -1,0 +1,192 @@
+package com.challenge.keeggo.service;
+
+import java.nio.charset.Charset;
+import java.util.List;
+import java.util.Optional;
+
+import org.apache.commons.codec.binary.Base64;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.challenge.keeggo.dto.CustomerLoginDTO;
+import com.challenge.keeggo.dto.CustomerRequestDTO;
+import com.challenge.keeggo.entity.Customer;
+import com.challenge.keeggo.exception.AuthenticationException;
+import com.challenge.keeggo.exception.BusinessRuleException;
+import com.challenge.keeggo.exception.UserDuplicationException;
+import com.challenge.keeggo.repository.CustomerRepository;
+
+import br.com.caelum.stella.validation.CPFValidator;
+import br.com.caelum.stella.validation.InvalidStateException;
+
+
+@Service
+public class CustomerServiceImpl implements CustomerService{
+
+	@Autowired
+	private CustomerRepository repository;
+
+	@Override
+	public CustomerRequestDTO customerSignup(CustomerRequestDTO customerRequestDTO) {
+		
+		validatesCustomerDuplication(customerRequestDTO);
+		validateCPF(customerRequestDTO.getCpf());
+		encryptPassword(customerRequestDTO);
+		
+		Customer custumer = convertDTOCustomer(customerRequestDTO);
+		repository.save(custumer);
+
+		return customerRequestDTO;
+	}
+
+	@Override
+	public CustomerLoginDTO customerLogin(CustomerLoginDTO customerLoginDTO) {
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		Optional<Customer> customer = repository.findByEmailContainingIgnoreCase(customerLoginDTO.getEmail());
+		
+		if(customer.isPresent()) {
+			
+			if (encoder.matches(customerLoginDTO.getPassword(), customer.get().getPassword())) {
+				
+				String auth = customerLoginDTO.getEmail() + ":" + customerLoginDTO.getPassword();
+				byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
+				String authHeader = "Basic " + new String(encodedAuth);
+
+				customerLoginDTO.setToken(authHeader);
+				
+				return customerLoginDTO;
+			}else {
+				throw new AuthenticationException("Password is invalid.");
+			}
+		}else {
+			throw new AuthenticationException("User not found for login.");
+		}
+	}
+
+	@Override
+	public Optional<CustomerRequestDTO> customerUpdate(CustomerRequestDTO customerRequestDTO) {
+		
+		boolean customerPresent = repository
+							.findByEmailContainingIgnoreCase(customerRequestDTO.getEmail()).isPresent();
+
+		if (customerPresent){
+			try {
+				validateCPF(customerRequestDTO.getCpf());
+				validatesCustomerDuplication(customerRequestDTO);
+				encryptPassword(customerRequestDTO);
+				
+				Customer customer = convertDTOCustomer(customerRequestDTO);
+				repository.save(customer);
+				return Optional.of(customerRequestDTO);
+				
+			}catch(BusinessRuleException e){
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), null);
+			}
+		}else{
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found for update!", null);
+		}
+		
+	}
+
+	@Override
+	public Optional<Customer> getCustomerById(Long id) {
+		
+		Optional<Customer> customer = repository.findById(id);
+		
+		if(customer.isPresent()) {
+			return Optional.of(customer.get());
+		}else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found!", null);
+		}
+	}
+
+	@Override
+	public List<CustomerRequestDTO> getAllCustomers() {
+		
+		repository.findAll();
+		
+		
+		
+		return repository.findAll();
+	}
+
+	@Override
+	public void customerDelete(Long id) {
+		
+		Optional<Customer> customerExists = repository.findById(id);
+		
+		if(customerExists.isPresent()) {
+			 repository.deleteById(id); 
+		}else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found for deletion!", null);
+		}
+		
+	}
+
+	@Override
+	public void validateCPF(String cpf) {
+		
+		CPFValidator cpfValidate = new CPFValidator();
+
+		try {
+			cpfValidate.assertValid(cpf);
+		} catch (InvalidStateException e) {
+			throw new BusinessRuleException("Invalid CPF.");
+		}
+		
+	}
+
+	@Override
+	public void validatesCustomerDuplication(CustomerRequestDTO customerRequestDTO) {
+	
+		Optional<Customer> customerEmail = repository.findByEmailContainingIgnoreCase(customerRequestDTO.getEmail());
+		Optional<Customer> customerCpf = repository.findByCpf(customerRequestDTO.getCpf());
+
+		boolean existsEmail = repository.existsByEmail(customerRequestDTO.getEmail());
+		boolean existsCPF = repository.existsByCpf(customerRequestDTO.getCpf());
+
+		if (existsEmail && customerEmail.get().getId() != customerRequestDTO.getId()) {
+			throw new UserDuplicationException("Already exists a user with this e-mail.");
+		}
+		if (existsCPF && customerCpf.get().getId() != customerRequestDTO.getId()) {
+			throw new UserDuplicationException("Already exists a user with this CPF.");
+		}
+		
+	}
+	
+	public void encryptPassword(CustomerRequestDTO customerRequestDTO) {
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String passwordEncode = encoder.encode(customerRequestDTO.getPassword());
+		customerRequestDTO.setPassword(passwordEncode);
+	}
+	
+	public Customer convertDTOCustomer(CustomerRequestDTO customerRequestDTO) {
+		
+		Customer customer = Customer.builder()
+							.email(customerRequestDTO.getEmail())
+							.password(customerRequestDTO.getPassword())
+							.name(customerRequestDTO.getName())
+							.cpf(customerRequestDTO.getCpf())
+							.address(customerRequestDTO.getAddress()).build();
+		
+		return customer;
+	}
+	
+	public CustomerRequestDTO convertCustomerToDTO(Customer customer) {
+		
+		CustomerRequestDTO customerDTO = CustomerRequestDTO.builder()
+							.name(customer.getName())
+							.cpf(customer.getCpf())
+							.address(customer.getAddress()).build();
+		
+		return customerDTO;
+	}
+	
+	
+}
