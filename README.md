@@ -1,5 +1,5 @@
 # Customer - API Rest
-Aplicação desenvolvida para cadastro e autenticação de clientes;
+Aplicação desenvolvida para cadastro e autenticação de clientes.
 
 ### Tecnologias 
 - Java 8
