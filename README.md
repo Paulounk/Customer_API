@@ -95,6 +95,8 @@ Caso o cliente (usuario) queira realizar a alteração de suas informações cad
 
 <br>
 
+Se o cliente desejar excluir seu cadastro na base de dados, será necessario realizar um DELETE no end-point https://apicustomerchallenge.herokuapp.com/delete/{id}, passando o ID do cliente. Necessario passar o Token de Autorização recebido no momento do Login.
+
 Caso o usuario deseje retornar todos os clientes cadastrados na base de dados, será necessario realizar um GET no end-point https://apicustomerchallenge.herokuapp.com/customers. Necessario passar o Token de Autorização recebido no momento do Login.
 
 Se o usuario deseje retornar apenas um cliente, será necessario realizar um GET no end-point https://apicustomerchallenge.herokuapp.com/customers/{id}, passando o ID do cliente. Necessario passar o Token de Autorização recebido no momento do Login.
