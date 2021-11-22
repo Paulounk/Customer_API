@@ -64,7 +64,7 @@ public class CustomerResource {
 		}
 	}
 
-	@PutMapping("/update")
+	@PutMapping("/alteration")
 	public ResponseEntity<?> customerUpdate(@RequestBody @Valid CustomerDTO customerDTO) {
 		try {
 			service.customerAlteration(customerDTO);

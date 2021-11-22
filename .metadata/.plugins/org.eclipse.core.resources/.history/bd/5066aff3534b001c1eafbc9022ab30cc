@@ -1,0 +1,17 @@
+com\challenge\keeggo\resource\CustomerResource.class
+com\challenge\keeggo\entity\Address.class
+com\challenge\keeggo\dto\CustomerDTO$CustomerDTOBuilder.class
+com\challenge\keeggo\security\UserDetailsImpl.class
+com\challenge\keeggo\entity\Address$AddressBuilder.class
+com\challenge\keeggo\config\SecurityConfig.class
+com\challenge\keeggo\entity\Customer.class
+com\challenge\keeggo\security\UserDetailsServiceImpl.class
+com\challenge\keeggo\service\CustomerServiceImpl.class
+com\challenge\keeggo\ChallengeApplication.class
+com\challenge\keeggo\exception\InvalidInformationException.class
+com\challenge\keeggo\dto\CustomerLoginDTO.class
+com\challenge\keeggo\dto\CustomerDTO.class
+com\challenge\keeggo\exception\AuthenticationException.class
+com\challenge\keeggo\service\CustomerService.class
+com\challenge\keeggo\repository\CustomerRepository.class
+com\challenge\keeggo\entity\Customer$CustomerBuilder.class

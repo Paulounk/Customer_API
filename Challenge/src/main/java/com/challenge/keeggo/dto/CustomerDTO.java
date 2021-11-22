@@ -19,6 +19,7 @@ public class CustomerDTO {
 	private Long id;
 	
 	@Email
+	@NotBlank(message = "The fild email is required.")
 	private String email;
 	
 	@NotBlank(message = "The fild password is required.")
