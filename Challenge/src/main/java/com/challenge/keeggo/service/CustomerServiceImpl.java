@@ -57,6 +57,7 @@ public class CustomerServiceImpl implements CustomerService{
 				String authHeader = "Basic " + new String(encodedAuth);
 
 				customerLoginDTO.setToken(authHeader);
+				customerLoginDTO.setPassword(customer.get().getPassword());
 				
 				return customerLoginDTO;
 			}else {
