@@ -14,8 +14,6 @@ O deploy foi realizado na nuvem utilizando o serviço do Heroku. De primeiro mom
 
 # Como utilizar
 
-Recomendo utilizar o programa Postman ou Insomnia para realizar as requisições.
-
 O cliente (usuario) precisa realizar seu cadastro através de um POST no end-point https://apicustomerchallenge.herokuapp.com/customers/sign-up, passando os campos obrigatórios:
 
 - Email (necessario ser um e-mail válido) 
@@ -102,7 +100,4 @@ Se o cliente desejar excluir seu cadastro na base de dados, será necessario rea
 Caso o usuario deseje retornar todos os clientes cadastrados na base de dados, será necessario realizar um GET no end-point https://apicustomerchallenge.herokuapp.com/customers. Necessario passar o Token de Autorização recebido no momento do Login.
 
 Se o usuario deseje retornar apenas um cliente, será necessario realizar um GET no end-point https://apicustomerchallenge.herokuapp.com/customers/{id}, passando o ID do cliente. Necessario passar o Token de Autorização recebido no momento do Login.
-
-
-
 
