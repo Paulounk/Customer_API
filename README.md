@@ -15,7 +15,7 @@ O deploy foi realizado na nuvem utilizando o serviço do Heroku. De primeiro mom
 # Como utilizar
 
 ### Cadastro de Cliente
-O cliente (usuario) precisa realizar seu cadastro através de um POST no end-point https://apicustomerchallenge.herokuapp.com/customers/sign-up, passando os campos obrigatórios:
+Para realizar o cadastro de um cliente, será necessário realizar uma requisição do tipo POST no end-point https://apicustomerchallenge.herokuapp.com/customers/sign-up, passando os campos obrigatórios:
 
 - Email (necessario ser um e-mail válido) 
 - Password (necessario ter no minimo 6 caracteres)
@@ -51,7 +51,7 @@ O cliente (usuario) precisa realizar seu cadastro através de um POST no end-poi
 <br>
 
 ### Login
-Após realizar seu cadastro, o mesmo precisa realizar o login através de um POST no end-point https://apicustomerchallenge.herokuapp.com/customers/login, passando os campos "Email" e "Password" informados no cadastro. Se o login for realizado com sucesso, será retornado um Token no body da requisição para autorização aos outros end-points.
+Para o cliente realizar o login será necessario realizar uma requisição do tipo POST no end-point https://apicustomerchallenge.herokuapp.com/customers/login, passando os campos "Email" e "Password" informados no cadastro. Se o login for realizado com sucesso, será retornado um Token no body da requisição para autorização aos outros end-points.
 
 #### Exemplo JSON
 ```
