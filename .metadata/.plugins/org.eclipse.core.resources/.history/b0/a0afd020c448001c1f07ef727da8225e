@@ -1,5 +1,0 @@
-package com.challenge.keeggo.exception;
-
-public class BusinessRuleException {
-
-}

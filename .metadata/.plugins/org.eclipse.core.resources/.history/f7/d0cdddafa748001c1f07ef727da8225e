@@ -1,8 +1,0 @@
-package com.challenge.keeggo.model;
-
-import javax.persistence.Entity;
-
-@Entity
-public class User {
-
-}

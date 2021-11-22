@@ -1,6 +1,0 @@
-package com.challenge.keeggo.mapper;
-
-@Mapper
-public interface CustomerMapper {
-
-}
