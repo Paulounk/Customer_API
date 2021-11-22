@@ -1,11 +1,20 @@
 # Customer - API Rest
-Aplicação desenvolvida com Java 8 e Spring Boot, para cadastro e autenticação de clientes;
+Aplicação desenvolvida para cadastro e autenticação de clientes;
+
+### Tecnologias 
+- Java 8
+- Spring Boot (JPA, Security, H2)
+- PostgreSQL
+- Eclipse IDE
+- Swagger (Documentação)
+
+### Deploy
+
+O deploy foi realizado na nuvem utilizando o serviço do Heroku. De primeiro momento as requisições podem demorar alguns minutos até que o servidor se inicie, pois o servidor no Heroku hiberna após 20 minutos de inatividade.
 
 # Como utilizar
 
-Obs: De primeiro momento as requisições podem demorar alguns minutos até que o servidor se inicie, pois aplicação está rodando no Heroku, e após 20 minutos de inatividade, o servidor hiberna.
-
-1º Passo: O cliente (usuario) precisa realizar seu cadastro através de um POST no end-point https://apicustomerchallenge.herokuapp.com/customers/sign-up, passando os campos obrigatórios:
+O cliente (usuario) precisa realizar seu cadastro através de um POST no end-point https://apicustomerchallenge.herokuapp.com/customers/sign-up, passando os campos obrigatórios:
 
 - Email (necessario ser um e-mail válido) 
 - Password (necessario ter no minimo 6 caracteres)
@@ -40,7 +49,7 @@ Obs: De primeiro momento as requisições podem demorar alguns minutos até que 
 
 <br>
 
-2º Passo: Após realizar seu cadastro, o mesmo precisa realizar o login através de um POST no end-point https://apicustomerchallenge.herokuapp.com/customers/login, passando os campos "Email" e "Password" informados no cadastro. Se o login for realizado com sucesso, será retornado um Token no body da requisição para autorização aos outros end-points.
+Após realizar seu cadastro, o mesmo precisa realizar o login através de um POST no end-point https://apicustomerchallenge.herokuapp.com/customers/login, passando os campos "Email" e "Password" informados no cadastro. Se o login for realizado com sucesso, será retornado um Token no body da requisição para autorização aos outros end-points.
 
 ### Exemplo JSON
 ```
@@ -49,12 +58,21 @@ Obs: De primeiro momento as requisições podem demorar alguns minutos até que 
     "password": "123456"
 }
 ```
+### Exemplo de Retorno
+```
+{
+    "email": "paulo@hotmail.com",
+    "password": "$2a$10$.cfAnu6HDrZ/FSMUXM1AE.GZbRCWxB.5Uqmvv7qmECncA7fU4fqjC",
+    "token": "Basic cGF1bG9AaG90bWFpbC5jb206MTIzNDU2"
+}
+```
 
 <br>
 
-3º Passo: Caso o cliente (usuario) queira realizar a alteração de suas informações cadastrais, o mesmo pode realizar um PUT no end-point https://apicustomerchallenge.herokuapp.com/customers/alteration, passando todos os campos e seu Id. Conforme o JSON abaixo, foi alterado o campo "name" e "street" se comparado ao momento do cadastro.
+Caso o cliente (usuario) queira realizar a alteração de suas informações cadastrais, o mesmo pode realizar um PUT no end-point https://apicustomerchallenge.herokuapp.com/customers/alteration, passando o Token de autorização no Header da requisição, e no body todos os campos e seu Id. Conforme o JSON abaixo, foi alterado o campo "name" e "street" se comparado ao momento do cadastro.
 
 ### Exemplo JSON
+
 ```
 {
     "id": 1,
@@ -74,6 +92,12 @@ Obs: De primeiro momento as requisições podem demorar alguns minutos até que 
         }
 }
 ```
+
+<br>
+
+Caso o usuario deseje retornar todos os clientes cadastrados na base de dados, será necessario realizar um GET no end-point https://apicustomerchallenge.herokuapp.com/customers. Necessario passar o Token de Autorização recebido no momento do Login.
+
+Se o usuario deseje retornar apenas um cliente, será necessario realizar um GET no end-point https://apicustomerchallenge.herokuapp.com/customers/{id}, passando o ID do cliente. Necessario passar o Token de Autorização recebido no momento do Login.
 
 
 
