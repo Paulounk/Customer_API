@@ -61,7 +61,7 @@ Após realizar seu cadastro, o mesmo precisa realizar o login através de um POS
 ### Exemplo de Retorno
 ```
 {
-    "email": "paulo@hotmail.com",
+    "email": "teste@hotmail.com",
     "password": "$2a$10$.cfAnu6HDrZ/FSMUXM1AE.GZbRCWxB.5Uqmvv7qmECncA7fU4fqjC",
     "token": "Basic cGF1bG9AaG90bWFpbC5jb206MTIzNDU2"
 }
