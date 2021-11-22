@@ -4,6 +4,7 @@ Aplicação desenvolvida para cadastro e autenticação de clientes.
 ### Tecnologias 
 - Java 8
 - Spring Boot (JPA, Security, H2)
+- JUNIT5
 - PostgreSQL
 - Eclipse IDE
 - Swagger (Documentação)
