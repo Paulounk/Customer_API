@@ -73,7 +73,7 @@ Para o cliente realizar o login será necessario realizar uma requisição do ti
 <br>
 
 ### Alteração de Cadastro 
-Caso o cliente (usuario) queira realizar a alteração de suas informações cadastrais, o mesmo pode realizar um PUT no end-point https://apicustomerchallenge.herokuapp.com/customers/alteration, passando o Token de autorização no Header da requisição, e no body todos os campos e seu Id. Conforme o JSON abaixo, foi alterado o campo "name" e "street" se comparado ao momento do cadastro.
+Para alteração de informações cadastrais do cliente, será necessário realizar uma requisição do tipo PUT no end-point https://apicustomerchallenge.herokuapp.com/customers/alteration, passando o Token de autorização no Header da requisição, e no body todos os campos e seu id. Conforme o JSON abaixo, foi alterado o campo "name" e "street" se comparado ao momento do cadastro.
 
 #### Exemplo JSON
 
@@ -82,12 +82,12 @@ Caso o cliente (usuario) queira realizar a alteração de suas informações cad
     "id": 1,
     "email":"teste@hotmail.com",
     "password": "123456",
-    "name": "Fulano Teste",
+    "name": "Ciclano Teste",
     "cpf": "43510385004",
     "address":
         {
             "id": 1,
-            "street": "Rua Santo Antonio",
+            "street": "Rua Carvalho de Souza"
             "number": "86",
             "complement": "02",
             "neighborhood": "Vila Centro",
@@ -100,15 +100,15 @@ Caso o cliente (usuario) queira realizar a alteração de suas informações cad
 <br>
 
 ### Exclusão de Cadastro 
-Para excluir um cliente na base de dados, será necessario realizar um DELETE no end-point https://apicustomerchallenge.herokuapp.com/delete/{id}, passando o ID do cliente. Necessario passar o Token de Autorização recebido no momento do Login.
+Para excluir um cliente na base de dados, será necessario realizar uma requisição do tipo DELETE no end-point https://apicustomerchallenge.herokuapp.com/delete/{id}, passando o ID do cliente. Necessario passar o Token de Autorização recebido no momento do Login.
 
 <br>
 
 ### Obter Todos os Clientes
-Para retornar todos os clientes cadastrados na base de dados, será necessario realizar um GET no end-point https://apicustomerchallenge.herokuapp.com/customers. Necessario passar o Token de Autorização recebido no momento do Login.
+Para retornar todos os clientes cadastrados na base de dados, será necessario realizar uma requisição do tipo GET no end-point https://apicustomerchallenge.herokuapp.com/customers. Necessario passar o Token de Autorização recebido no momento do Login.
 
 <br>
 
 ### Obter Cliente
-Para retornar apenas um cliente, será necessario realizar um GET no end-point https://apicustomerchallenge.herokuapp.com/customers/{id}, passando o ID do cliente. Necessario passar o Token de Autorização recebido no momento do Login.
+Para retornar apenas um cliente, será necessario realizar uma requisição do tipo GET no end-point https://apicustomerchallenge.herokuapp.com/customers/{id}, passando o ID do cliente. Necessario passar o Token de Autorização recebido no momento do Login.
 
