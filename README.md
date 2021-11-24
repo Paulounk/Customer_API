@@ -11,7 +11,7 @@ Aplicação desenvolvida para cadastro e autenticação de clientes.
 
 ### Deploy
 
-O deploy foi realizado na nuvem utilizando o serviço do Heroku. De primeiro momento as requisições podem demorar alguns minutos até que o servidor se inicie, pois o servidor hiberna após 20 minutos de inatividade.
+O deploy foi realizado na nuvem utilizando o serviço do Heroku. De primeiro momento as requisições podem demorar alguns minutos até que o servidor se inicie, pois o mesmo hiberna após 20 minutos de inatividade.
 
 # Como utilizar
 
