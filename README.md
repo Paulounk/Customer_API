@@ -3,7 +3,7 @@ Aplicação desenvolvida para cadastro e autenticação de clientes.
 
 ### Tecnologias 
 - Java 8
-- Spring Boot (JPA, Security, H2)
+- Spring Boot
 - JUNIT5
 - PostgreSQL
 - Eclipse IDE
@@ -11,7 +11,7 @@ Aplicação desenvolvida para cadastro e autenticação de clientes.
 
 ### Deploy
 
-O deploy foi realizado na nuvem utilizando o serviço do Heroku. De primeiro momento as requisições podem demorar alguns minutos até que o servidor se inicie, pois o servidor no Heroku hiberna após 20 minutos de inatividade.
+O deploy foi realizado na nuvem utilizando o serviço do Heroku. De primeiro momento as requisições podem demorar alguns minutos até que o servidor se inicie, pois o servidor hiberna após 20 minutos de inatividade.
 
 # Como utilizar
 
@@ -73,7 +73,7 @@ Para o cliente realizar o login será necessario realizar uma requisição do ti
 <br>
 
 ### Alteração de Cadastro 
-Para alteração de informações cadastrais do cliente, será necessário realizar uma requisição do tipo PUT no end-point https://apicustomerchallenge.herokuapp.com/customers/alteration, passando o Token de autorização no Header da requisição, e no body todos os campos e seu id. Conforme o JSON abaixo, foi alterado o campo "name" e "street" se comparado ao momento do cadastro.
+Para alteração de informações cadastrais do cliente, será necessário realizar uma requisição do tipo PUT no end-point https://apicustomerchallenge.herokuapp.com/customers/alteration, passando o Token de autorização no Header da requisição, e no body todos os campos e seu ID. Conforme o JSON abaixo, foi alterado o campo "name" e "street" se comparado ao momento do cadastro.
 
 #### Exemplo JSON
 
